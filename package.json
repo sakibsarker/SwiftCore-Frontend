@@ -15,7 +15,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "npm run build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start",
@@ -86,7 +86,6 @@
     "eslint-plugin-react-hooks": "4.6.0",
     "prettier": "2.8.8",
     "@babel/plugin-proposal-private-property-in-object": "^7.18.9"
-
   },
   "eslintConfig": {
     "extends": [
