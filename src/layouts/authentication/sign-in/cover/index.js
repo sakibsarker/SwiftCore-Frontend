@@ -43,7 +43,7 @@ function Cover() {
 //re direct after login shipping
   const {search}=useLocation();
   const sp=new URLSearchParams(search);
-  const redirect=sp.get('redirect')||'/dashboards/crm';
+  const redirect=sp.get('redirect')||'/dashboards/default';
   
   useEffect(()=>{
     if(userInfo){

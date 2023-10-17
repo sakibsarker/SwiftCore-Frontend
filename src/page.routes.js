@@ -11,12 +11,7 @@ const pageRoutes = [
     key: "dashboards",
     icon: <Shop size="12px" color="white" />,
     collapse: [
-      {
-        name: "Default",
-        key: "default",
-        route: "/dashboards/default",
-      },
-      { name: "CRM", key: "crm", route: "/dashboards/crm" },
+      { name: "CRM", key: "crm", route: "/dashboards/default" },
     ],
   },
   {
@@ -172,24 +167,24 @@ const pageRoutes = [
     icon: <Shop size="12px" color="white" />,
     collapse: [
       {
-        name: "New Product",
-        key: "new-product",
-        route: "/ecommerce/products/new-product",
-      },
-      {
-        name: "Edit Product",
+        name: "Add Product",
         key: "edit-product",
-        route: "/ecommerce/products/edit-product",
-      },
-      {
-        name: "Product Page",
-        key: "product-page",
-        route: "/ecommerce/products/product-page",
+        route: "/ecommerce/products/add-product",
       },
       {
         name: "Products List",
         key: "products-list",
         route: "/ecommerce/products/products-list",
+      },
+      {
+        name: "New Product",
+        key: "new-product",
+        route: "/ecommerce/products/new-product",
+      },
+      {
+        name: "Product Page",
+        key: "product-page",
+        route: "/ecommerce/products/product-page",
       },
     ],
   },
@@ -197,21 +192,21 @@ const pageRoutes = [
     name: "Sign In",
     key: "sign-in",
     collapse: [
-      {
-        name: "Basic",
-        key: "basic",
-        route: "/authentication/sign-in/basic",
-      },
+      // {
+      //   name: "Basic",
+      //   key: "basic",
+      //   route: "/authentication/sign-in/basic",
+      // },
       {
         name: "Cover",
         key: "cover",
         route: "/authentication/sign-in/cover",
       },
-      {
-        name: "Illustration",
-        key: "illustration",
-        route: "/authentication/sign-in/illustration",
-      },
+      // {
+      //   name: "Illustration",
+      //   key: "illustration",
+      //   route: "/authentication/sign-in/illustration",
+      // },
     ],
   },
   {

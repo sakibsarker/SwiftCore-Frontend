@@ -6,8 +6,12 @@ import PropTypes from 'prop-types';
 import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
 import { useDeleteProductMutation } from "slices/productsApiSlice";
+import { useNavigate } from "react-router-dom";
+
 
 function ActionCell({ productId }) {
+  const navigate = useNavigate();
+
 
   console.log(productId)
 
@@ -25,6 +29,11 @@ function ActionCell({ productId }) {
     }
   };
 
+  const handleEditClick = () => {
+    navigate(`/ecommerce/products/update-product/${productId}`);
+};
+
+
   return (
     <SoftBox display="flex" alignItems="center">
       <SoftTypography variant="body1" color="secondary" sx={{ cursor: "pointer", lineHeight: 0 }}>
@@ -35,7 +44,8 @@ function ActionCell({ productId }) {
       <SoftBox mx={2}>
         <SoftTypography variant="body1" color="secondary" sx={{ cursor: "pointer", lineHeight: 0 }}>
           <Tooltip title="Edit product" placement="top">
-            <Icon>edit</Icon>
+            {/* <Icon>edit</Icon> */}
+            <Icon onClick={handleEditClick}>edit</Icon>
           </Tooltip>
         </SoftTypography>
       </SoftBox>

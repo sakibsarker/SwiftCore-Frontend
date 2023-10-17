@@ -1,8 +1,4 @@
 import Default from "layouts/dashboards/default";
-import Automotive from "layouts/dashboards/automotive";
-import SmartHome from "layouts/dashboards/smart-home";
-import VRDefault from "layouts/dashboards/virtual-reality/vr-default";
-import VRInfo from "layouts/dashboards/virtual-reality/vr-info";
 import CRM from "layouts/dashboards/crm";
 import ProfileOverview from "layouts/pages/profile/profile-overview";
 import Teams from "layouts/pages/profile/teams";
@@ -52,6 +48,7 @@ import VerificationCover from "layouts/authentication/2-step-verification/cover"
 import VerificationIllustration from "layouts/authentication/2-step-verification/illustration";
 import Error404 from "layouts/authentication/error/404";
 import Error500 from "layouts/authentication/error/500";
+import UpdateProduct from "layouts/ecommerce/products/update-product"
 
 // Soft UI Dashboard PRO React icons
 import Shop from "examples/Icons/Shop";
@@ -72,13 +69,11 @@ const routes = [
     key: "dashboards",
     icon: <Shop size="12px" />,
     collapse: [
-      {
-        name: "Default",
-        key: "default",
-        route: "/dashboards/default",
-        component: <PrivateRoute><Default /></PrivateRoute>,
-      },
-      { name: "CRM", key: "crm", route: "/dashboards/crm", component: <PrivateRoute><CRM /></PrivateRoute> },
+      { 
+      name: "CRM",
+      key: "crm", 
+      route: "/dashboards/default",
+      component: <PrivateRoute><CRM /></PrivateRoute> },
     ],
   },
   { type: "title", title: "Pages", key: "title-pages" },
@@ -262,28 +257,34 @@ const routes = [
         key: "products",
         collapse: [
           {
-            name: "New Product",
-            key: "new-product",
-            route: "/ecommerce/products/new-product",
-            component: <PrivateRoute><NewProduct /></PrivateRoute>,
-          },
-          {
-            name: "Edit Product",
+            name: "Add Product",
             key: "edit-product",
-            route: "/ecommerce/products/edit-product",
+            route: "/ecommerce/products/add-product",
             component: <AdminRoute><EditProduct /></AdminRoute>,
-          },
-          {
-            name: "Product Page",
-            key: "product-page",
-            route: "/ecommerce/products/product-page",
-            component: <PrivateRoute><ProductPage /></PrivateRoute>,
           },
           {
             name: "Products List",
             key: "products-list",
             route: "/ecommerce/products/products-list",
             component: <PrivateRoute><ProductsList /></PrivateRoute>,
+          },
+          {
+            name: "Update Product",
+            key: "update-product",
+            route: "/ecommerce/products/update-product/:productId",
+            component: <PrivateRoute><UpdateProduct /></PrivateRoute>,
+          },
+          {
+            name: "New Product",
+            key: "new-product",
+            route: "/ecommerce/products/new-product",
+            component: <PrivateRoute><NewProduct /></PrivateRoute>,
+          },
+          {
+            name: "Product Page",
+            key: "product-page",
+            route: "/ecommerce/products/product-page",
+            component: <PrivateRoute><ProductPage /></PrivateRoute>,
           },
         ],
       },
@@ -323,48 +324,48 @@ const routes = [
         name: "Sign In",
         key: "sign-in",
         collapse: [
-          {
-            name: "Basic",
-            key: "basic",
-            route: "/authentication/sign-in/basic",
-            component: <SignInBasic />,
-          },
+          // {
+          //   name: "Basic",
+          //   key: "basic",
+          //   route: "/authentication/sign-in/basic",
+          //   component: <SignInBasic />,
+          // },
           {
             name: "Cover",
             key: "cover",
             route: "/authentication/sign-in/cover",
             component: <SignInCover />,
           },
-          {
-            name: "Illustration",
-            key: "illustration",
-            route: "/authentication/sign-in/illustration",
-            component: <SignInIllustration />,
-          },
+          // {
+          //   name: "Illustration",
+          //   key: "illustration",
+          //   route: "/authentication/sign-in/illustration",
+          //   component: <SignInIllustration />,
+          // },
         ],
       },
       {
         name: "Sign Up",
         key: "sign-up",
         collapse: [
-          {
-            name: "Basic",
-            key: "basic",
-            route: "/authentication/sign-up/basic",
-            component: <SignUpBasic />,
-          },
+          // {
+          //   name: "Basic",
+          //   key: "basic",
+          //   route: "/authentication/sign-up/basic",
+          //   component: <SignUpBasic />,
+          // },
           {
             name: "Cover",
             key: "cover",
             route: "/authentication/sign-up/cover",
             component: <SignUpCover />,
           },
-          {
-            name: "Illustration",
-            key: "illustration",
-            route: "/authentication/sign-up/illustration",
-            component: <SignUpIllustration />,
-          },
+          // {
+          //   name: "Illustration",
+          //   key: "illustration",
+          //   route: "/authentication/sign-up/illustration",
+          //   component: <SignUpIllustration />,
+          // },
         ],
       },
       {
