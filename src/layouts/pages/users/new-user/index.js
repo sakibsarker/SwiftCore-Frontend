@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Soft UI Dashboard PRO React - v4.0.1
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-pro-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { useState } from "react";
 
 // formik components
@@ -44,6 +29,7 @@ import Profile from "layouts/pages/users/new-user/components/Profile";
 import validations from "layouts/pages/users/new-user/schemas/validations";
 import form from "layouts/pages/users/new-user/schemas/form";
 import initialValues from "layouts/pages/users/new-user/schemas/initialValues";
+import { useRegistercustomerMutation } from "slices/usersApiSlice";
 
 function getSteps() {
   return ["User Info", "Address", "Social", "Profile"];
@@ -65,6 +51,8 @@ function getStepContent(stepIndex, formData) {
 }
 
 function NewUser() {
+  const [registerCustomer, { isLoading, isError, error }] = useRegistercustomerMutation();
+
   const [activeStep, setActiveStep] = useState(0);
   const steps = getSteps();
   const { formId, formField } = form;
@@ -78,40 +66,39 @@ function NewUser() {
   const handleBack = () => setActiveStep(activeStep - 1);
 
   const submitForm = async (values, actions) => {
-    await sleep(1000);
-
-    // eslint-disable-next-line no-alert
-    alert(JSON.stringify(values, null, 2));
-
-    actions.setSubmitting(false);
-    actions.resetForm();
-
-    setActiveStep(0);
+    try {
+      await registerCustomer({
+        name: values.firstName,
+        email: values.email,
+        password: values.password,
+      });
+      actions.setSubmitting(false);
+      actions.resetForm();
+      setActiveStep(0);
+      // Maybe navigate the user to a success page or show a success message
+    } catch (e) {
+      // Handle the error here. You can set form errors or show an error notification.
+      console.error("Error registering the user:", e);
+    }
   };
 
   const handleSubmit = (values, actions) => {
-    if (isLastStep) {
-      submitForm(values, actions);
-    } else {
-      setActiveStep(activeStep + 1);
-      actions.setTouched({});
-      actions.setSubmitting(false);
-    }
+    submitForm(values, actions);
   };
 
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <SoftBox py={3} mb={20}>
+      <SoftBox py={7} mb={20}>
         <Grid container justifyContent="center" sx={{ height: "100%" }}>
           <Grid item xs={12} lg={8}>
-            <Stepper activeStep={activeStep} alternativeLabel>
+            {/* <Stepper activeStep={activeStep} alternativeLabel>
               {steps.map((label) => (
                 <Step key={label}>
                   <StepLabel>{label}</StepLabel>
                 </Step>
               ))}
-            </Stepper>
+            </Stepper> */}
             <Formik
               initialValues={initialValues}
               validationSchema={currentValidation}
@@ -122,12 +109,7 @@ function NewUser() {
                   <Card sx={{ height: "100%" }}>
                     <SoftBox p={2}>
                       <SoftBox>
-                        {getStepContent(activeStep, {
-                          values,
-                          touched,
-                          formField,
-                          errors,
-                        })}
+                      <UserInfo formData={{values, touched, formField, errors}} />
                         <SoftBox mt={2} width="100%" display="flex" justifyContent="space-between">
                           {activeStep === 0 ? (
                             <SoftBox />
@@ -137,12 +119,12 @@ function NewUser() {
                             </SoftButton>
                           )}
                           <SoftButton
-                            disabled={isSubmitting}
+                            disabled={isSubmitting || isLoading}
                             type="submit"
                             variant="gradient"
                             color="dark"
                           >
-                            {isLastStep ? "send" : "next"}
+                            Register Now
                           </SoftButton>
                         </SoftBox>
                       </SoftBox>

@@ -1,35 +1,20 @@
-/**
-=========================================================
-* Soft UI Dashboard PRO React - v4.0.1
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-pro-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 const form = {
   formId: "new-user-form",
   formField: {
     firstName: {
       name: "firstName",
-      label: "first name",
+      label: "Full name",
       type: "text",
       placeholder: "eg. Micheal",
       errorMsg: "First name is required.",
     },
-    lastName: {
-      name: "lastName",
-      label: "last name",
-      type: "text",
-      placeholder: "eg. Prior",
-      errorMsg: "Last name is required.",
-    },
+    // lastName: {
+    //   name: "lastName",
+    //   label: "last name",
+    //   type: "text",
+    //   placeholder: "eg. Prior",
+    //   errorMsg: "Last name is required.",
+    // },
     company: {
       name: "company",
       label: "company",

@@ -121,7 +121,7 @@ const routes = [
             name: "New User",
             key: "new-user",
             route: "/pages/users/new-user",
-            component:<PrivateRoute> <NewUser /></PrivateRoute>,
+            component:<AdminRoute><NewUser /></AdminRoute> ,
           },
         ],
       },

@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Soft UI Dashboard PRO React - v4.0.1
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-pro-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 // prop-type is a library for typechecking of props
 import PropTypes from "prop-types";
 
@@ -42,7 +27,7 @@ function UserInfo({ formData }) {
     <SoftBox>
       <SoftBox lineHeight={0}>
         <SoftTypography variant="h5" fontWeight="bold">
-          About me
+          Add Customer Account
         </SoftTypography>
         <SoftTypography variant="button" fontWeight="regular" color="text">
           Mandatory informations
@@ -61,7 +46,7 @@ function UserInfo({ formData }) {
               success={firstNameV.length > 0 && !errors.firstName}
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          {/* <Grid item xs={12} sm={6}>
             <FormField
               type={lastName.type}
               label={lastName.label}
@@ -71,10 +56,10 @@ function UserInfo({ formData }) {
               error={errors.lastName && touched.lastName}
               success={lastNameV.length > 0 && !errors.lastName}
             />
-          </Grid>
+          </Grid> */}
         </Grid>
         <Grid container spacing={3}>
-          <Grid item xs={12} sm={6}>
+          {/* <Grid item xs={12} sm={6}>
             <FormField
               type={company.type}
               label={company.label}
@@ -82,7 +67,7 @@ function UserInfo({ formData }) {
               value={companyV}
               placeholder={company.placeholder}
             />
-          </Grid>
+          </Grid> */}
           <Grid item xs={12} sm={6}>
             <FormField
               type={email.type}
