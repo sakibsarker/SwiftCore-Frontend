@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "Product" ADD COLUMN     "image" TEXT,
+ALTER COLUMN "tag" DROP DEFAULT,
+ALTER COLUMN "tag" SET DATA TYPE TEXT;
