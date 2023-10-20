@@ -65,7 +65,7 @@ function Pricing({ product, setProduct }) {
               />
             </Grid>
             <Grid item xs={12} sm={5}>
-              <FormField type="text" label="SKU" defaultValue={product.sku}
+              <FormField type="text" label="SKU" value={product.sku}
                 onChange={e => handleInputChange('sku', e.target.value)}/>
             </Grid>
           </Grid>

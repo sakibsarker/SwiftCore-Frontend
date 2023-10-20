@@ -1,5 +1,5 @@
 import { useState } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 // @mui material components
 import Grid from "@mui/material/Grid";
@@ -15,23 +15,20 @@ import SoftSelect from "components/SoftSelect";
 import FormField from "layouts/ecommerce/products/edit-product/components/FormField";
 
 function ProductInfo({ product, setProduct }) {
-
   const handleInputChange = (key, value) => {
     if (key === "weight") {
       value = parseFloat(value);
     }
-    
+
     if (key === "quantity") {
       value = parseInt(value, 10);
     }
-  
-    setProduct(prev => ({
+
+    setProduct((prev) => ({
       ...prev,
-      [key]: value
+      [key]: value,
     }));
   };
-  
-  
 
   return (
     <Card sx={{ overflow: "visible" }}>
@@ -40,29 +37,45 @@ function ProductInfo({ product, setProduct }) {
         <SoftBox mt={1}>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6}>
-              <FormField type="text" label="name" value={product.name} 
-                onChange={e => handleInputChange("name", e.target.value)} />
+              <FormField
+                type="text"
+                label="name"
+                value={product.name}
+                onChange={(e) => handleInputChange("name", e.target.value)}
+              />
             </Grid>
-            
+
             <Grid item xs={12} sm={6}>
-              <FormField type="number" label="weight" value={product.weight} 
-                onChange={e => handleInputChange("weight", e.target.value)} />
+              <FormField
+                type="number"
+                label="weight"
+                value={product.weight}
+                onChange={(e) => handleInputChange("weight", e.target.value)}
+              />
             </Grid>
           </Grid>
         </SoftBox>
         <SoftBox mt={1}>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6}>
-              <FormField type="text" label="collection"value={product.collection}
-                onChange={e => handleInputChange("collection", e.target.value)} />
+              <FormField
+                type="text"
+                label="collection"
+                value={product.collection}
+                onChange={(e) => handleInputChange("collection", e.target.value)}
+              />
             </Grid>
             {/* <Grid item xs={12} sm={3}>
               <FormField type="number" label="price" value={product.price}
                 onChange={e => handleInputChange("price", e.target.value)} />
             </Grid> */}
             <Grid item xs={12} sm={6}>
-              <FormField type="number" label="quantity" value={product.quantity}
-                onChange={e => handleInputChange("quantity", e.target.value)} />
+              <FormField
+                type="number"
+                label="quantity"
+                value={product.quantity}
+                onChange={(e) => handleInputChange("quantity", e.target.value)}
+              />
             </Grid>
           </Grid>
         </SoftBox>
@@ -78,12 +91,13 @@ function ProductInfo({ product, setProduct }) {
                 </SoftTypography>
               </SoftBox>
               <SoftEditor
-         value={() => product.description}
-         onChange={updatedValue => {
-           console.log("Description change:", updatedValue);
-           setProduct(prev => ({ ...prev, description: updatedValue }));
-         }}
-               />
+                defaultValue={product.description}
+                onChange={(updatedValue) => {
+                  console.log(product.description);
+                  console.log(updatedValue);
+                  setProduct((prev) => ({ ...prev, description: updatedValue }));
+                }}
+              />
             </Grid>
             <Grid item xs={12} sm={6}>
               <SoftBox mb={3}>
@@ -98,8 +112,8 @@ function ProductInfo({ product, setProduct }) {
                   </SoftTypography>
                 </SoftBox>
                 <SoftSelect
-                 value={{ value: product.category, label: product.category }}
-                 onChange={option => handleInputChange("category", option.value)}
+                  value={{ value: product.category, label: product.category }}
+                  onChange={(option) => handleInputChange("category", option.value)}
                   options={[
                     { value: "Ceramic Tile", label: "Ceramic Tile" },
                     { value: "Hard Wood", label: "Hard Wood" },
@@ -119,8 +133,8 @@ function ProductInfo({ product, setProduct }) {
                 </SoftTypography>
               </SoftBox>
               <SoftSelect
-                 value={{ value: product.color, label: product.color }}
-                 onChange={option => handleInputChange("color", option.value)}
+                value={{ value: product.color, label: product.color }}
+                onChange={(option) => handleInputChange("color", option.value)}
                 options={[
                   { value: "black", label: "Black" },
                   { value: "blue", label: "Blue" },
@@ -142,14 +156,13 @@ ProductInfo.propTypes = {
     name: PropTypes.string,
     category: PropTypes.string,
     description: PropTypes.string,
-    collection: PropTypes.string,  
+    collection: PropTypes.string,
     color: PropTypes.string,
-    weight: PropTypes.number,      
-    price: PropTypes.number.isRequired,       
-    quantity: PropTypes.number.isRequired, 
+    weight: PropTypes.number,
+    price: PropTypes.number.isRequired,
+    quantity: PropTypes.number.isRequired,
   }).isRequired,
   setProduct: PropTypes.func.isRequired,
 };
-
 
 export default ProductInfo;

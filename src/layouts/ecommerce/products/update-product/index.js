@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 // @mui material components
 import Grid from "@mui/material/Grid";
 
@@ -20,10 +20,9 @@ import Media from "./Media/index";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
-import {useUpdateProductMutation,useGetProductDetailsQuery } from "slices/productsApiSlice";
+import { useUpdateProductMutation, useGetProductDetailsQuery } from "slices/productsApiSlice";
 
 function EditProduct() {
-
   const { productId } = useParams();
 
   const { data: productDetails, isLoading, isError } = useGetProductDetailsQuery(productId);
@@ -32,14 +31,13 @@ function EditProduct() {
 
   const [selectedFile, setSelectedFile] = useState(null);
 
-
-  console.log(productId)
+  console.log(productId);
 
   const [product, setProduct] = useState({
     name: "",
-    image:"",
+    image: "",
     category: "",
-    description: "Writting",
+    description: "Enter",
     collection: "",
     color: "",
     weight: 0.0,
@@ -52,62 +50,54 @@ function EditProduct() {
 
   useEffect(() => {
     if (productDetails && !isLoading && !isError) {
+      console.log("Fetched product details:", productDetails); // Debugging line
       setProduct(productDetails);
     }
   }, [productDetails, isLoading, isError]);
- 
 
-
-
-    const handleFileDrop = (file) => {
-        setSelectedFile(file[0]);
-    };
-
-    const handleSave = async () => {
-      if (selectedFile) {
-          try {
-              const response = await axios.post("/api/upload", {
-                  file: selectedFile.name,
-                  fileType: selectedFile.type,
-              });
-              const { url, fields } = response.data;
-              const formData = new FormData();
-              Object.keys(fields).forEach((key) => formData.append(key, fields[key]));
-              formData.append("file", selectedFile);
-              await axios.post(url, formData);
-              const imageUrl = `${url}/${fields.key}`;
-
-              const updatedProduct = { ...product, image: imageUrl }; // Construct the product with the updated image URL.
-
-              setProduct(updatedProduct);  // This updates the React state.
-
-              try {
-                  // Use updatedProduct directly in the PUT request
-                  await updateProduct({
-                      productId: productId,
-                      ...updatedProduct // Using the object with the latest image URL.
-                  });
-                  console.log('Product updated successfully');
-              } catch (error) {
-                  console.error("Error updating product:", error);
-              }
-
-          } catch (error) {
-              alert("File upload failed. Please try again.");
-              return;
-          }
-      }
+  const handleFileDrop = (file) => {
+    setSelectedFile(file[0]);
   };
 
-  useEffect(() => {
-      if (productDetails && !isLoading && !isError) {
-          setProduct(productDetails);
-      }
-  }, [productDetails, isLoading, isError]);
+  const handleSave = async () => {
+    let imageUrl = product.image; // Default to the existing image URL
 
-  useEffect(() => {
-      console.log("Product's image URL has been updated:", product.image);
-  }, [product.image]);
+    if (selectedFile) {
+      try {
+        const response = await axios.post("/api/upload", {
+          file: selectedFile.name,
+          fileType: selectedFile.type,
+        });
+
+        const { url, fields } = response.data;
+        const formData = new FormData();
+
+        Object.keys(fields).forEach((key) => formData.append(key, fields[key]));
+        formData.append("file", selectedFile);
+
+        await axios.post(url, formData);
+
+        imageUrl = `${url}/${fields.key}`; // Only update if new image is uploaded
+      } catch (error) {
+        console.error("Error while uploading file:", error);
+        alert("File upload failed. We'll still attempt to update the other product details.");
+      }
+    }
+
+    const updatedProduct = { ...product, image: imageUrl };
+    setProduct(updatedProduct); // Update local state
+
+    try {
+      await updateProduct({
+        productId: productId,
+        ...updatedProduct,
+      });
+      console.log("Product updated successfully in backend");
+    } catch (error) {
+      console.error("Error updating product:", error);
+      alert("An error occurred while updating product details. Please try again.");
+    }
+  };
 
   return (
     <DashboardLayout>
@@ -137,15 +127,14 @@ function EditProduct() {
         </SoftBox>
         <Grid container spacing={3}>
           <Grid item xs={12} lg={4}>
-          <ProductImage imageUrl={product.image} />
-         
+            <ProductImage imageUrl={product.image} />
           </Grid>
           <Grid item xs={12} lg={8}>
-            <ProductInfo product={product} setProduct={setProduct} />
+            <ProductInfo key={productId} product={product} setProduct={setProduct} />
           </Grid>
           <Grid item xs={12} lg={4}>
-          {/* <Media/> */}
-          <Media onFileDrop={handleFileDrop} />
+            {/* <Media/> */}
+            <Media onFileDrop={handleFileDrop} />
           </Grid>
           <Grid item xs={12} lg={8}>
             <Pricing product={product} setProduct={setProduct} />
