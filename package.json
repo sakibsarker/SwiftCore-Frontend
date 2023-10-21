@@ -1,7 +1,7 @@
 {
   "name": "swiftcoremvp",
-  "private": true,
   "proxy": "https://swift-core-backend.vercel.app",
+  "private": true,
   "version": "4.0.1",
   "author": "Creative Tim",
   "license": "SEE LICENSE IN <https://www.creative-tim.com/license>",
