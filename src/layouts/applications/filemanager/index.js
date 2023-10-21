@@ -1,17 +1,4 @@
-/**
-=========================================================
-* Soft UI Dashboard PRO React - v4.0.1
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-pro-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
+import React, { useState, useEffect, useMemo } from 'react';
 
 // @mui material components
 import Card from "@mui/material/Card";
@@ -19,16 +6,35 @@ import Card from "@mui/material/Card";
 // Soft UI Dashboard PRO React components
 import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
-
-// Soft UI Dashboard PRO React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
+import { useGetFilesQuery } from 'slices/fileApiSlice';
 
-// Data
-import dataTableData from "layouts/applications/filemanager/data/dataTableData";
 function FileManager() {
+  
+  const { data: files, isError, isLoading } = useGetFilesQuery();
+
+  // Transform the data into the format needed for your component:
+  const transformedData = useMemo(() => {
+      if (!files) return null;
+
+      return {
+          columns: [
+              { Header: "Name", accessor: "fileName", width: "20%" },
+              { Header: "File URL", accessor: "fileUrl", width: "25%" },
+              { Header: "Format", accessor: "fileFormat" },
+              { Header: "Size", accessor: "formattedSize", width: "7%" },
+              { Header: "Last Modified", accessor: "lastModified" },
+          ],
+          rows: files.map(file => ({
+              ...file,
+              formattedSize: `${(file.fileSize / (1024 * 1024)).toFixed(2)} MB`
+          }))
+      };
+  }, [files]);
+
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -36,13 +42,13 @@ function FileManager() {
         <Card>
           <SoftBox p={3} lineHeight={1}>
             <SoftTypography variant="h5" fontWeight="medium">
-            File Manager 
+              File Manager 
             </SoftTypography>
             <SoftTypography variant="button" fontWeight="regular" color="text">
-             Image,MP4,Document,PDF,Excel
+              Image, MP4, Document, PDF, Excel
             </SoftTypography>
           </SoftBox>
-          <DataTable table={dataTableData} canSearch />
+          {transformedData ? <DataTable table={transformedData} canSearch /> : "Loading..."}
         </Card>
       </SoftBox>
       <Footer />
