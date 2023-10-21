@@ -23,7 +23,7 @@ function FileManager() {
       return {
           columns: [
               { Header: "Name", accessor: "fileName", width: "20%" },
-              { Header: "File URL", accessor: "fileUrl", width: "25%" },
+              // { Header: "File URL", accessor: "fileUrl", width: "25%" },
               { Header: "Format", accessor: "fileFormat" },
               { Header: "Size", accessor: "formattedSize", width: "7%" },
               { Header: "Last Modified", accessor: "lastModified" },
