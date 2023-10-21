@@ -1,10 +1,11 @@
 import {createSlice} from '@reduxjs/toolkit'
 
-const initialState={
-    userInfo:localStorage.getItem('userInfo')
-    ?JSON.parse(localStorage.getItem('userInfo'))
-    :null,
-}
+const initialState = {
+    userInfo: localStorage.getItem("userInfo")
+      ? JSON.parse(localStorage.getItem("userInfo"))
+      : null,
+    mode: localStorage.getItem("mode") ? localStorage.getItem("mode") : null,
+  };
 
 const authSlice=createSlice({
     name:'auth',
@@ -24,7 +25,12 @@ const authSlice=createSlice({
 
            
            
-        }
+        },
+        setMode: (state, action) => {
+            state.mode = action.payload;
+            console.log("Payload: ", action.payload);
+            localStorage.setItem("mode", action.payload);
+          },
     }
 })
 
